@@ -1,0 +1,12 @@
+venv/
+hf_env/
+__pycache__/
+*.py[cod]
+
+.vscode/
+.env
+*.env
+.env.*
+*.sqlite3
+*.static
+static/

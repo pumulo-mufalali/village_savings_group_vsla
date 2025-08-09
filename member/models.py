@@ -1,4 +1,5 @@
 from django.db import models
+from group.models import Group
 
 class Member(models.Model):
     group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='members')

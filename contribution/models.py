@@ -1,4 +1,6 @@
 from django.db import models
+from group.models import Group
+from member.models import Member
 
 class Contribution(models.Model):
     group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='contributions')

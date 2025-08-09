@@ -1,3 +1,4 @@
+# 🏗️ UNDER CONSTRUCTION LOL 
 # Village Savings Group Digital Platform (VSLA MVP)
 
 A simple digital platform to help Village Savings and Loan Associations (VSLAs) track member contributions using both a mobile app and USSD interface. This project aims to improve financial inclusion in African communities by digitizing informal savings groups.
@@ -37,5 +38,5 @@ A simple digital platform to help Village Savings and Loan Associations (VSLAs) 
 
 1. Clone the repository  
    ```bash
-   git clone https://github.com/yourusername/vsla-platform.git
-   cd vsla-platform
+   git clone https://github.com/pumulo-mufalali/village_savings_group_vsla.git
+   cd vsla

@@ -7,10 +7,9 @@ from .models import Contribution
 from member.models import Member
 from group.models import Group
 
-# Function-based views
+
 @login_required
 def contribution_list(request):
-    """Display all contributions"""
     contributions = Contribution.objects.all().order_by('-date', 'member__name')
     context = {
         'contributions': contributions,
@@ -20,7 +19,6 @@ def contribution_list(request):
 
 @login_required
 def contribution_detail(request, pk):
-    """Display contribution details"""
     contribution = get_object_or_404(Contribution, pk=pk)
     context = {
         'contribution': contribution,
@@ -30,9 +28,7 @@ def contribution_detail(request, pk):
 
 @login_required
 def contribution_create(request):
-    """Create a new contribution"""
     if request.method == 'POST':
-        # Handle form submission
         member_id = request.POST.get('member')
         amount = request.POST.get('amount')
         contribution_type = request.POST.get('contribution_type', 'savings')
@@ -67,11 +63,9 @@ def contribution_create(request):
 
 @login_required
 def contribution_update(request, pk):
-    """Update contribution information"""
     contribution = get_object_or_404(Contribution, pk=pk)
     
     if request.method == 'POST':
-        # Handle form submission
         member_id = request.POST.get('member')
         amount = request.POST.get('amount')
         contribution_type = request.POST.get('contribution_type')
@@ -106,7 +100,6 @@ def contribution_update(request, pk):
 
 @login_required
 def contribution_delete(request, pk):
-    """Delete a contribution"""
     contribution = get_object_or_404(Contribution, pk=pk)
     
     if request.method == 'POST':
@@ -124,7 +117,6 @@ def contribution_delete(request, pk):
 
 @login_required
 def member_contributions(request, member_id):
-    """Display all contributions for a specific member"""
     member = get_object_or_404(Member, id=member_id)
     contributions = member.contributions.all().order_by('-date')
     
@@ -142,11 +134,9 @@ def member_contributions(request, member_id):
 
 @login_required
 def group_contributions(request, group_id):
-    """Display all contributions for a specific group"""
     group = get_object_or_404(Group, id=group_id)
     members = group.members.all()
-    
-    # Get all contributions for group members
+
     contributions = Contribution.objects.filter(member__group=group).order_by('-date', 'member__name')
     
     total_savings = sum(c.amount for c in contributions if c.contribution_type == 'savings')
@@ -161,7 +151,7 @@ def group_contributions(request, group_id):
     }
     return render(request, 'contribution/group_contributions.html', context)
 
-# Class-based views
+
 class ContributionListView(ListView):
     model = Contribution
     template_name = 'contribution/contribution_list.html'

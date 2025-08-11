@@ -5,10 +5,9 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Group
 
-# Function-based views
+
 @login_required
 def group_list(request):
-    """Display all groups"""
     groups = Group.objects.all().order_by('name')
     context = {
         'groups': groups,
@@ -18,7 +17,6 @@ def group_list(request):
 
 @login_required
 def group_detail(request, pk):
-    """Display group details"""
     group = get_object_or_404(Group, pk=pk)
     members = group.members.all().order_by('name')
     context = {
@@ -30,9 +28,7 @@ def group_detail(request, pk):
 
 @login_required
 def group_create(request):
-    """Create a new group"""
     if request.method == 'POST':
-        # Handle form submission
         name = request.POST.get('name')
         cycle_start_date = request.POST.get('cycle_start_date')
         
@@ -56,11 +52,9 @@ def group_create(request):
 
 @login_required
 def group_update(request, pk):
-    """Update group information"""
     group = get_object_or_404(Group, pk=pk)
     
     if request.method == 'POST':
-        # Handle form submission
         name = request.POST.get('name')
         cycle_start_date = request.POST.get('cycle_start_date')
         
@@ -84,7 +78,6 @@ def group_update(request, pk):
 
 @login_required
 def group_delete(request, pk):
-    """Delete a group"""
     group = get_object_or_404(Group, pk=pk)
     
     if request.method == 'POST':
@@ -99,7 +92,7 @@ def group_delete(request, pk):
     }
     return render(request, 'group/group_confirm_delete.html', context)
 
-# Class-based views
+
 class GroupListView(ListView):
     model = Group
     template_name = 'group/group_list.html'

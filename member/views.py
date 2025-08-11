@@ -6,10 +6,9 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .models import Member
 from group.models import Group
 
-# Function-based views
+
 @login_required
 def member_list(request):
-    """Display all members"""
     members = Member.objects.all().order_by('group__name', 'name')
     context = {
         'members': members,
@@ -19,7 +18,6 @@ def member_list(request):
 
 @login_required
 def member_detail(request, pk):
-    """Display member details"""
     member = get_object_or_404(Member, pk=pk)
     context = {
         'member': member,
@@ -29,9 +27,7 @@ def member_detail(request, pk):
 
 @login_required
 def member_create(request):
-    """Create a new member"""
     if request.method == 'POST':
-        # Handle form submission
         name = request.POST.get('name')
         phone_number = request.POST.get('phone_number')
         group_id = request.POST.get('group')
@@ -64,11 +60,9 @@ def member_create(request):
 
 @login_required
 def member_update(request, pk):
-    """Update member information"""
     member = get_object_or_404(Member, pk=pk)
     
     if request.method == 'POST':
-        # Handle form submission
         name = request.POST.get('name')
         phone_number = request.POST.get('phone_number')
         group_id = request.POST.get('group')
@@ -101,7 +95,7 @@ def member_update(request, pk):
 
 @login_required
 def member_delete(request, pk):
-    """Delete a member"""
+
     member = get_object_or_404(Member, pk=pk)
     
     if request.method == 'POST':
@@ -116,7 +110,7 @@ def member_delete(request, pk):
     }
     return render(request, 'member/member_confirm_delete.html', context)
 
-# Class-based views
+
 class MemberListView(ListView):
     model = Member
     template_name = 'member/member_list.html'
